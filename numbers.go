@@ -28,6 +28,7 @@ func (inst *TwilioClient)AvailableNumbersByCountryLocal(ISOcountryCode string, n
 	if needVoice{
 		params.Set("VoiceEnabled", "true")
 	}
+	params.Set("Contains", "614")
 	
 	var availableNumbers *AvailableNumbers
 	
@@ -54,6 +55,7 @@ func (inst *TwilioClient)AvailableNumbersByCountryMobile(ISOcountryCode string, 
 	if needVoice{
 		params.Set("VoiceEnabled", "true")
 	}
+	params.Set("Contains", "%")
 	
 	var availableNumbers *AvailableNumbers
 	
@@ -66,7 +68,7 @@ func (inst *TwilioClient)AvailableNumbersByCountryMobile(ISOcountryCode string, 
 	availableNumbers = new(AvailableNumbers)
 	err = json.Unmarshal(res, availableNumbers)
 
-	if len(availableNumbers.Available_Numbers) > 0{
+	if len(availableNumbers.Available_Numbers) == 0{
 		return availableNumbers, errors.New("Error: No numbers given")
 	}
 
